@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const VideoContainer = styled.div`
@@ -30,7 +30,7 @@ const VideoBtn = styled.div`
 `;
 
 export default () => {
-	const [muted, setMuted] = useState(false);
+	const [muted, setMuted] = useState(true);
 	const [volume, setVolume] = useState("fas fa-volume-up");
 	const [toggle, setToggle] = useState(false);
 
@@ -45,18 +45,20 @@ export default () => {
 		setToggle(true);
 	};
 
+	const setMuteInitial = () => {
+		setTimeout(setMuted(false), 1000);
+	};
+
+	useEffect(() => setMuteInitial(), []);
+
 	return (
 		<VideoContainer>
-			<Video
-				src="limDarkSoul.mp4"
-				autoPlay={true}
-				type="video/mp4"
-				muted={muted}
-			/>
+			<Video src="limDarkSoul.mp4" autoPlay type="video/mp4" muted={muted} />
 			<VideoBtn
 				onMouseDown={handleVolumeClick}
 				onMouseUp={() => setToggle(false)}
 				toggle={toggle}
+				loop
 			>
 				<i className={volume}></i>
 			</VideoBtn>
