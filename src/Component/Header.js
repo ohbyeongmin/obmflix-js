@@ -3,82 +3,82 @@ import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = styled.div`
-  width: 100%;
-  height: 70px;
-  font-size: 15px;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  background-color: ${(props) =>
-    props.scrollOnTop ? "transparent" : "rgb(20,20,20)"};
-  transition: background-color 0.4s ease-in-out;
-  z-index: 10;
+	width: 100%;
+	height: 70px;
+	font-size: 15px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background-color: ${(props) =>
+		props.scrollOnTop ? "transparent" : "rgb(20,20,20)"};
+	transition: background-color 0.4s ease-in-out;
+	z-index: 10;
 `;
 const Lists = styled.ul`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 70px;
-  padding: 0px 50px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 70px;
+	padding: 0px 50px;
 `;
 const Item = styled.li`
-  text-align: center;
-  &:not(:first-child) {
-    margin-left: 35px;
-    opacity: ${(props) => (props.current ? 1 : 0.5)};
-    font-weight: ${(props) => (props.current ? 600 : 400)};
-  }
-  &:last-child {
-    margin-left: auto;
-  }
+	text-align: center;
+	&:not(:first-child) {
+		margin-left: 35px;
+		opacity: ${(props) => (props.current ? 1 : 0.5)};
+		font-weight: ${(props) => (props.current ? 600 : 400)};
+	}
+	&:last-child {
+		margin-left: auto;
+	}
 `;
 const SLink = styled(Link)``;
 const Logo = styled.img`
-  background-size: cover;
-  width: 100px;
+	background-size: cover;
+	width: 100px;
 `;
 
 export default withRouter(({ location: { pathname } }) => {
-  const [scrollOnTop, setScrollOnTop] = useState(true);
+	const [scrollOnTop, setScrollOnTop] = useState(true);
 
-  const scrollHandle = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    if (scrollTop > 0) {
-      setScrollOnTop(false);
-    } else {
-      setScrollOnTop(true);
-    }
-  };
+	const scrollHandle = () => {
+		const scrollTop = document.documentElement.scrollTop;
+		if (scrollTop > 0) {
+			setScrollOnTop(false);
+		} else {
+			setScrollOnTop(true);
+		}
+	};
 
-  useEffect(() => {
-    window.addEventListener("scroll", scrollHandle);
-    return () => {
-      window.removeEventListener("scroll", scrollHandle);
-    };
-  }, []);
+	useEffect(() => {
+		window.addEventListener("scroll", scrollHandle);
+		return () => {
+			window.removeEventListener("scroll", scrollHandle);
+		};
+	}, []);
 
-  return (
-    <Header scrollOnTop={scrollOnTop}>
-      <Lists>
-        <Item current={pathname === "/"}>
-          <SLink to="/">
-            <Logo src="logo.png" alt="logo" />
-          </SLink>
-        </Item>
-        <Item current={pathname === "/"}>
-          <SLink to="/">영화</SLink>
-        </Item>
-        <Item current={pathname === "/tv"}>
-          <SLink to="/tv">TV 프로그램</SLink>
-        </Item>
-        <Item current={pathname === "/search"}>
-          <SLink to="/search">
-            <span>
-              <i className="fas fa-search"></i>
-            </span>
-          </SLink>
-        </Item>
-      </Lists>
-    </Header>
-  );
+	return (
+		<Header scrollOnTop={scrollOnTop}>
+			<Lists>
+				<Item current={pathname === "/"}>
+					<SLink to="/">
+						<Logo src="logo.png" alt="logo" />
+					</SLink>
+				</Item>
+				<Item current={pathname === "/"}>
+					<SLink to="/">영화</SLink>
+				</Item>
+				<Item current={pathname === "/tv"}>
+					<SLink to="/tv">TV 프로그램</SLink>
+				</Item>
+				<Item current={pathname === "/search"}>
+					<SLink to="/search">
+						<span>
+							<i className="fas fa-search"></i>
+						</span>
+					</SLink>
+				</Item>
+			</Lists>
+		</Header>
+	);
 });
