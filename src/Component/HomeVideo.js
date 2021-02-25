@@ -47,12 +47,15 @@ const VideoLogo = styled.img`
 	opacity: 0;
 	animation: ${LogoAnimation} 2s 3.5s linear;
 	animation-fill-mode: forwards;
+	animation-play-state: ${(props) =>
+		props.playAnimation ? "running" : "paused"};
 `;
 
 export default () => {
 	const [muted, setMuted] = useState(true);
 	const [volume, setVolume] = useState("fas fa-volume-mute");
 	const [toggle, setToggle] = useState(false);
+	const [videoLoaded, setVideoLoaded] = useState(false);
 
 	const handleVolumeClick = (e) => {
 		if (muted) {
@@ -65,22 +68,27 @@ export default () => {
 		setToggle(true);
 	};
 
-	// const setMuteInitial = () => {
-	// 	setTimeout(setMuted(false), 1000);
-	// };
-
-	// useEffect(() => setMuteInitial(), []);
-
 	return (
 		<VideoContainer>
-			<Video src="limDarkSoul.mp4" autoPlay type="video/mp4" muted={muted} />
-			<VideoLogo src="darkSoulLogo.png" alt="logo" />
+			<Video
+				src="limDarkSoul.mp4"
+				type="video/mp4"
+				muted={muted}
+				onCanPlay={(e) => {
+					setVideoLoaded(true);
+					e.target.play();
+				}}
+			/>
+			<VideoLogo
+				src="darkSoulLogo.png"
+				alt="logo"
+				playAnimation={videoLoaded}
+			/>
 			<VideoBtn
 				onMouseDown={handleVolumeClick}
 				onMouseUp={() => setToggle(false)}
 				toggle={toggle}
 				loop
-				onCh
 			>
 				<i className={volume}></i>
 			</VideoBtn>
