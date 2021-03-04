@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
+import Search from "./Search";
 
 const Header = styled.div`
 	width: 100%;
@@ -29,6 +30,7 @@ const Item = styled.li`
 		font-weight: ${(props) => (props.current ? 600 : 400)};
 	}
 	&:last-child {
+		opacity: 1;
 		margin-left: auto;
 	}
 `;
@@ -38,10 +40,10 @@ const Logo = styled.img`
 	width: 100px;
 `;
 
-export default withRouter(({ location: { pathname } }) => {
+export default withRouter(({ location: { pathname }, history, match }) => {
 	const [scrollOnTop, setScrollOnTop] = useState(true);
 
-	const scrollHandle = () => {
+	const scrollHandler = () => {
 		const scrollTop = document.documentElement.scrollTop;
 		if (scrollTop > 0) {
 			setScrollOnTop(false);
@@ -49,11 +51,10 @@ export default withRouter(({ location: { pathname } }) => {
 			setScrollOnTop(true);
 		}
 	};
-
 	useEffect(() => {
-		window.addEventListener("scroll", scrollHandle);
+		window.addEventListener("scroll", scrollHandler);
 		return () => {
-			window.removeEventListener("scroll", scrollHandle);
+			window.removeEventListener("scroll", scrollHandler);
 		};
 	}, []);
 
@@ -72,11 +73,7 @@ export default withRouter(({ location: { pathname } }) => {
 					<SLink to="/tv">TV 프로그램</SLink>
 				</Item>
 				<Item current={pathname === "/search"}>
-					<SLink to="/search">
-						<span>
-							<i className="fas fa-search"></i>
-						</span>
-					</SLink>
+					<Search history={history} match={match}></Search>
 				</Item>
 			</Lists>
 		</Header>

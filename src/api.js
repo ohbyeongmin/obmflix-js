@@ -18,13 +18,12 @@ export const moviesApi = {
 				append_to_response: "videos",
 			},
 		}),
-	search: (term) => {
-		api.get("/search/movie", {
+	search: (term) =>
+		api.get("search/movie", {
 			params: {
 				query: term,
 			},
-		});
-	},
+		}),
 };
 
 export const tvApi = {

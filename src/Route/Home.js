@@ -55,7 +55,7 @@ export default () => {
 					<HomeVideo />
 					<Container>
 						{nowPlaying && nowPlaying.length > 0 && (
-							<Section title="Now Playing">
+							<Section title="현재 상영중">
 								{nowPlaying.map((movie) => (
 									<Poster
 										key={movie.id}
@@ -72,7 +72,7 @@ export default () => {
 							</Section>
 						)}
 						{upcoming && upcoming.length > 0 && (
-							<Section title="Upcoming">
+							<Section title="곧 출시 될 영화">
 								{upcoming.map((movie) => (
 									<Poster
 										key={movie.id}
@@ -89,7 +89,7 @@ export default () => {
 							</Section>
 						)}
 						{popular && popular.length > 0 && (
-							<Section title="Popular">
+							<Section title="인기 영화">
 								{popular.map((movie) => (
 									<Poster
 										key={movie.id}
