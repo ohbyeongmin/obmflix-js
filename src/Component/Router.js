@@ -10,6 +10,7 @@ import Home from "Route/Home";
 import TV from "Route/TV";
 import Search from "Route/Search";
 import HomeVideo from "./HomeVideo";
+import Detail from "Route/Detail";
 
 export default () => (
 	<Router>
@@ -17,8 +18,10 @@ export default () => (
 			<Header />
 			<Switch>
 				<Route path="/" exact component={Home} />
-				<Route path="/tv" component={TV} />
+				<Route path="/tv" exact component={TV} />
 				<Route path="/search/:searchTerm" exact component={Search} />
+				<Route path="/movie/:id" component={Detail} />
+				<Route path="/tv/:id" exact component={Detail} />
 				<Redirect from="*" to="/" />
 			</Switch>
 		</>
